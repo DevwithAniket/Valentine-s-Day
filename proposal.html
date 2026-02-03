@@ -14,6 +14,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
+            min-height: 100vh;
             height: 100vh;
             background: linear-gradient(135deg, #ffeef8 0%, #ffe4e9 50%, #fff0f5 100%);
             display: flex;
@@ -558,6 +559,7 @@
 
         noBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             noBtnClicks++;
             
             // Show warning - works on both desktop and mobile
@@ -565,7 +567,10 @@
         });
 
         // YES button click handler
-        document.getElementById('yesBtn').addEventListener('click', function() {
+        document.getElementById('yesBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            // Hide warning if visible
+            document.getElementById('warningPopup').style.display = 'none';
             // Show modal
             document.getElementById('modal').classList.add('show');
             
@@ -605,7 +610,9 @@
         });
 
         // Close warning popup
-        document.getElementById('closeWarning').addEventListener('click', function() {
+        document.getElementById('closeWarning').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             document.getElementById('warningPopup').style.display = 'none';
         });
 
